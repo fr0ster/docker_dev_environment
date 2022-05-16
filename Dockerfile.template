@@ -7,8 +7,8 @@ LABEL maintainer="Alex Kislitsa"
 # Radare version
 ARG R2_VERSION=master
 ARG R2_TAG=5.6.8
-# R2pipe python version
-ARG R2_PIPE_PY_VERSION=1.6.5
+# # R2pipe python version
+# ARG R2_PIPE_PY_VERSION=1.6.5
 
 ENV R2_VERSION ${R2_VERSION}
 ENV R2_TAG ${R2_TAG}
@@ -16,8 +16,7 @@ ENV R2_PIPE_PY_VERSION ${R2_PIPE_PY_VERSION}
 
 RUN echo -e "Building versions:\n\
   R2_VERSION=${R2_VERSION}\n\
-  R2_TAG=${R2_TAG}\n\
-  R2_PIPE_PY_VERSION=${R2_PIPE_PY_VERSION}"
+  R2_TAG=${R2_TAG}"
 
 # Build radare2 in a volume to minimize space used by build
 VOLUME ["/mnt"]
@@ -34,14 +33,14 @@ RUN \
   git bison flex xz-utils \
   pkg-config make socat netcat \
   pkg-config gnupg2 wget \
-  sudo python3-pip unzip 
+  sudo python3-pip unzip vim bash-completion
 
 WORKDIR /mnt
 
 RUN \
   git clone -q --depth 1 https://github.com/radareorg/radare2.git -b ${R2_TAG} && \
   cd radare2 && \
-  git switch -c ${R2_TAG} && \
+  git checkout -b ${R2_TAG} && \
   ./sys/install.sh --install && \
   apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -56,5 +55,20 @@ USER adam
 WORKDIR /home/adam
 ENV HOME /home/adam
 
+# COPY heapinspect ${HOME}/heapinspect
+# COPY gef ${HOME}/gef
+# COPY peda ${HOME}/peda
+# COPY pwndbg ${HOME}/pwndbg
+COPY .gdbinit ${HOME}/.gdbinit
+
 # Setup r2pm
-RUN r2pm init && r2pm update && r2pm -i r2ghidra
+RUN r2pm init && r2pm update && r2pm -i r2ghidra  && \
+  pip install --upgrade pip && \
+  pip install r2pipe && \
+  pip install --upgrade pwntools ropper ropgadget && \
+  echo "export PATH=~/.local/bin:$PATH" >> ${HOME}/.bashrc && \
+  git clone https://github.com/matrix1001/heapinspect.git && \
+  git clone https://github.com/hugsy/gef.git && \
+  git clone https://github.com/longld/peda.git && \
+  git clone https://github.com/pwndbg/pwndbg.git && \
+  cd pwndbg && ./setup.sh
