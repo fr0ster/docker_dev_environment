@@ -72,6 +72,7 @@ RUN dpkg --add-architecture i386 && \
   zstd \
   sudo \
   python-is-python3 && \
+  apt install locales --reinstall && \
   rm -rf /var/lib/apt/list/*
 
 WORKDIR /mnt
@@ -88,6 +89,9 @@ RUN useradd -m adam && usermod -aG sudo adam
 
 # New added for disable sudo password
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+COPY locale.gen /etc/
+RUN locale-gen
 
 # Initilise base user
 USER adam
@@ -114,3 +118,5 @@ RUN \
   git clone https://github.com/pwndbg/pwndbg.git
 
 RUN cd pwndbg && ./setup.sh
+
+RUN echo "export LC_ALL=en_US.UTF-8" >> $HOME/.bashrc
