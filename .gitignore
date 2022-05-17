@@ -1,2 +1,5 @@
 .vscode/
 Dockerfile
+test/
+!test/hello.c
+.gdb_history
