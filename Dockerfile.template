@@ -72,9 +72,8 @@ RUN dpkg --add-architecture i386 && \
   zstd \
   sudo && \
   apt install locales --reinstall && \
-  rm -rf /var/lib/apt/list/*
-
-COPY python /usr/bin/python
+  rm -rf /var/lib/apt/list/* && \
+  ln /usr/bin/python3 /usr/bin/python
 
 WORKDIR /mnt
 
@@ -124,7 +123,5 @@ RUN cd pwndbg && ./setup.sh
 
 RUN echo "export LC_ALL=en_US.UTF-8" >> $HOME/.bashrc
 
-COPY gem_init.sh ${HOME}/.gem_init.sh
 RUN gem install --user one_gadget && \
-  echo "PATH=${HOME}/.local/bin:$(sh ${HOME}/.gem_init.sh):$PATH" >> $HOME/.bashrc && \
-  rm ${HOME}/.gem_init.sh
+    echo "PATH=${HOME}/.local/bin:$(find ~ -name one_gadget -exec dirname {} \; | tail -n 1):$PATH" >> $HOME/.bashrc
