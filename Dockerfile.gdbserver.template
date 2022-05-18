@@ -51,10 +51,11 @@ RUN dpkg --add-architecture i386 && \
     rpm2cpio cpio \
     zstd \
     tzdata --fix-missing \
-    sudo \
-    python-is-python3 && \
+    sudo && \
     apt install locales --reinstall && \
     rm -rf /var/lib/apt/list/*
+
+COPY python /usr/bin/python
 
 # Create non-root user
 RUN useradd -m adam && usermod -aG sudo adam
@@ -70,14 +71,21 @@ USER adam
 WORKDIR /home/adam
 ENV HOME /home/adam
 
-COPY .gdbinit ${HOME}/.gdbinit
-
 RUN \
     git clone https://github.com/matrix1001/heapinspect.git && \
     git clone https://github.com/hugsy/gef.git && \
     git clone https://github.com/longld/peda.git && \
     git clone https://github.com/pwndbg/pwndbg.git
 
+COPY .gdbinit ${HOME}/.gdbinit
+COPY .pwn.conf ${HOME}/.pwn.conf
+COPY .tmux.conf ${HOME}/.tmux.conf
+
 RUN cd pwndbg && ./setup.sh
 
 RUN echo "export LC_ALL=en_US.UTF-8" >> $HOME/.bashrc
+
+COPY gem_init.sh ${HOME}/.gem_init.sh
+RUN gem install --user one_gadget && \
+    echo "PATH=${HOME}/.local/bin:$(sh ${HOME}/.gem_init.sh):$PATH" >> $HOME/.bashrc && \
+    rm ${HOME}/.gem_init.sh
