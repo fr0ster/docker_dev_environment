@@ -21,14 +21,26 @@ Pay attention, debugging works for amd64/i386 only, for ather architectires wors
 ### Image building
 
 amd64, Ubuntu, latest version
-```make run```
+```
+make run
+```
 amd64, Debian, latest latest
-```OS=Debian make build```
+```
+OS=Debian make build
+```
 amd64, Ubuntu, 18.04
-```VERSION=18.04 make build```
+```
+VERSION=18.04 make build
+```
 i386, Ubuntu, latest version
-```ARCH=i386 make run```
+```
+ARCH=i386 make run
+```
 i386, Debian, latest latest
-```ARCH=i386 OS=Debian make build```
+```
+ARCH=i386 OS=Debian make build
+```
 i386, Ubuntu, 18.04
-```ARCH=i386 VERSION=18.04 make build```
+```
+ARCH=i386 VERSION=18.04 make build
+```
