@@ -102,12 +102,19 @@ ENV HOME /home/adam
 RUN r2pm init && r2pm update && r2pm -i r2ghidra && \
   echo "export PATH=~/.local/bin:$PATH" >> ${HOME}/.bashrc
 
-RUN \
-  pip3 install --upgrade pip && \
-  pip3 install r2pipe
-
-RUN \
-  pip3 install --upgrade unicorn pwntools ropper ropgadget
+RUN python3 -m pip install -U pip && \
+    python3 -m pip install --no-cache-dir \
+    ropgadget \
+    z3-solver \
+    smmap2 \
+    apscheduler \
+    ropper \
+    unicorn \
+    keystone-engine \
+    capstone \
+    angr \
+    pebble \
+    r2pipe
 
 RUN \
   git clone https://github.com/matrix1001/heapinspect.git && \
@@ -123,5 +130,5 @@ RUN cd pwndbg && ./setup.sh
 
 RUN echo "export LC_ALL=en_US.UTF-8" >> $HOME/.bashrc
 
-RUN gem install --user one_gadget && \
+RUN gem install --user one_gadget seccomp-tools && \
     echo "PATH=${HOME}/.local/bin:$(find ~ -name one_gadget -exec dirname {} \; | tail -n 1):$PATH" >> $HOME/.bashrc
