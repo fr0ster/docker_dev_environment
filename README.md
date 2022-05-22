@@ -35,35 +35,35 @@ Pay attention, debugging works for amd64/i386 only, for ather architectires wors
 
 ### Image building
 
-amd64, Ubuntu, latest version
+amd64, Ubuntu, latest version, radare2 5.6.8 (default version)
 ```
 make build
 ```
-amd64, Debian, latest latest
+amd64, Debian, latest latest, radare2 5.6.8 (default version)
 ```
 OS=Debian make build
 ```
-amd64, Ubuntu, 18.04
+amd64, Ubuntu, 18.04, radare2 5.6.8 (default version)
 ```
 VERSION=18.04 make build
 ```
-amd64, Debian, 9.0
+amd64, Debian, 9.0, radare2 5.6.8 (default version)
 ```
 OS=Debian VERSION=9.0 make build
 ```
-i386, Ubuntu, latest version
+i386, Ubuntu, latest version, radare2 5.6.8 (default version)
 ```
 ARCH=i386 make build
 ```
-i386, Debian, latest latest
+i386, Debian, latest latest, radare2 5.6.8 (default version)
 ```
-ARCH=i386 OS=Debian make build
+ARCH=i386 OS=Debian make build, radare2 5.6.8
 ```
-i386, Ubuntu, 18.04
+i386, Ubuntu, 18.04, radare2 5.6.8 (default version)
 ```
 ARCH=i386 VERSION=18.04 make build
 ```
-i386, Debian, 9.0
+i386, Debian, 9.0, radare2 5.6.8 (default version)
 ```
 ARCH=i386 OS=Debian VERSION=9.0 make build
 ```
@@ -72,70 +72,70 @@ ARCH=i386 OS=Debian VERSION=9.0 make build
 
 #### From project folder
 
-amd64, Ubuntu, latest version
+amd64, Ubuntu, latest version, radare2 5.6.8 (default version)
 ```
 make run
 ```
-amd64, Debian, latest latest
+amd64, Debian, latest latest, radare2 5.6.8 (default version)
 ```
 OS=Debian make run
 ```
-amd64, Ubuntu, 18.04
+amd64, Ubuntu, 18.04, radare2 5.6.8 (default version)
 ```
 VERSION=18.04 make run
 ```
-amd64, Debian, 9.0
+amd64, Debian, 9.0, radare2 5.6.8 (default version)
 ```
 OS=Debian VERSION=9.0 make run
 ```
-i386, Ubuntu, latest version
+i386, Ubuntu, latest version, radare2 5.6.8 (default version)
 ```
 ARCH=i386 make run
 ```
-i386, Debian, latest latest
+i386, Debian, latest latest, radare2 5.6.8 (default version)
 ```
 ARCH=i386 OS=Debian make run
 ```
-i386, Ubuntu, 18.04
+i386, Ubuntu, 18.04, radare2 5.6.8 (default version)
 ```
 ARCH=i386 VERSION=18.04 make run
 ```
-i386, Debian, 9.0
+i386, Debian, 9.0, radare2 5.6.8 (default version)
 ```
 ARCH=i386 OS=Debian VERSION=9.0 make run
 ```
 
 #### By docker
 
-amd64, Ubuntu, latest version
+amd64, Ubuntu, latest version, radare2 5.6.8 (default version)
 ```
-docker run --rm -v $(pwd)/test:/work_dir --network=host -it luckycatalex/dev_environment:amd64-ubuntu-latest
+docker run --rm -v $(pwd)/test:/work_dir --network=host -it luckycatalex/dev_environment:amd64-ubuntu-latest-5.6.8
 ```
-amd64, Debian, latest latest
+amd64, Debian, latest latest, radare2 5.6.8 (default version)
 ```
-docker run --rm -v $(pwd)/test:/work_dir --network=host -it luckycatalex/dev_environment:amd64-debian-latest
+docker run --rm -v $(pwd)/test:/work_dir --network=host -it luckycatalex/dev_environment:amd64-debian-latest-5.6.8
 ```
-amd64, Ubuntu, 18.04
+amd64, Ubuntu, 18.04, radare2 5.6.8 (default version)
 ```
-docker run --rm -v $(pwd)/test:/work_dir --network=host -it luckycatalex/dev_environment:amd64-ubuntu-latest
+docker run --rm -v $(pwd)/test:/work_dir --network=host -it luckycatalex/dev_environment:amd64-ubuntu-18.04-5.6.8
 ```
-amd64, Debian, 9.0
+amd64, Debian, 9.0, radare2 5.6.8 (default version)
 ```
-docker run --rm -v $(pwd)/test:/work_dir --network=host -it luckycatalex/dev_environment:amd64-ubuntu-9.0
+docker run --rm -v $(pwd)/test:/work_dir --network=host -it luckycatalex/dev_environment:amd64-debian-9.0-5.6.8
 ```
-i386, Ubuntu, latest version
+i386, Ubuntu, latest version, radare2 5.6.8 (default version)
 ```
-docker run --rm -v $(pwd)/test:/work_dir --network=host -it luckycatalex/dev_environment:i386-ubuntu-latest
+docker run --rm -v $(pwd)/test:/work_dir --network=host -it luckycatalex/dev_environment:i386-ubuntu-latest-5.6.8
 ```
-i386, Debian, latest latest
+i386, Debian, latest latest, radare2 5.6.8 (default version)
 ```
-docker run --rm -v $(pwd)/test:/work_dir --network=host -it luckycatalex/dev_environment:i386-debian-latest
+docker run --rm -v $(pwd)/test:/work_dir --network=host -it luckycatalex/dev_environment:i386-debian-latest-5.6.8
 ```
-i386, Ubuntu, 18.04
+i386, Ubuntu, 18.04, radare2 5.6.8 (default version)
 ```
-docker run --rm -v $(pwd)/test:/work_dir --network=host -it luckycatalex/dev_environment:i386-ubuntu-latest
+docker run --rm -v $(pwd)/test:/work_dir --network=host -it luckycatalex/dev_environment:i386-ubuntu-18.04-5.6.8
 ```
-i386, Debian, 9.0
+i386, Debian, 9.0, radare2 5.6.8 (default version)
 ```
-docker run --rm -v $(pwd)/test:/work_dir --network=host -it luckycatalex/dev_environment:i386-debian-9.0
+docker run --rm -v $(pwd)/test:/work_dir --network=host -it luckycatalex/dev_environment:i386-debian-9.0-5.6.8
 ```
