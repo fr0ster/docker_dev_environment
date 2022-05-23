@@ -103,32 +103,37 @@ RUN r2pm init && r2pm update && r2pm -i r2ghidra && \
   echo "export PATH=~/.local/bin:$PATH" >> ${HOME}/.bashrc
 
 RUN python3 -m pip install -U pip && \
-    python3 -m pip install --no-cache-dir \
-    ropgadget \
-    z3-solver \
-    smmap2 \
-    apscheduler \
-    ropper \
-    unicorn \
-    keystone-engine \
-    capstone \
-    angr \
-    pebble \
-    r2pipe
-
-RUN \
-  git clone https://github.com/matrix1001/heapinspect.git && \
-  git clone https://github.com/hugsy/gef.git && \
-  git clone https://github.com/longld/peda.git && \
-  git clone https://github.com/pwndbg/pwndbg.git
+  python3 -m pip install --no-cache-dir \
+  ropgadget \
+  z3-solver \
+  smmap2 \
+  apscheduler \
+  ropper \
+  unicorn \
+  keystone-engine \
+  capstone \
+  angr \
+  pebble \
+  r2pipe
 
 COPY .gdbinit ${HOME}/.gdbinit
 COPY .pwn.conf ${HOME}/.pwn.conf
 COPY .tmux.conf ${HOME}/.tmux.conf
 
-RUN cd pwndbg && ./setup.sh
-
-RUN echo "export LC_ALL=en_US.UTF-8" >> $HOME/.bashrc
-
-RUN gem install --user one_gadget seccomp-tools && \
-    echo "PATH=${HOME}/.local/bin:$(find ~ -name one_gadget -exec dirname {} \; | tail -n 1):$PATH" >> $HOME/.bashrc
+RUN \
+  sudo chown adam:adam ${HOME}/.gdbinit ${HOME}/.pwn.conf ${HOME}/.tmux.conf && \
+  gem install --user one_gadget seccomp-tools && \
+  git clone https://github.com/matrix1001/heapinspect.git ~/heapinspect && \
+  git clone https://github.com/hugsy/gef.git ~/gef && \
+  git clone https://github.com/longld/peda.git ~/peda && \
+  git clone https://github.com/pwndbg/pwndbg.git ~/pwndbg && \
+  cd ~/pwndbg && ./setup.sh && \
+  git clone --depth 1 https://github.com/scwuaptx/Pwngdb.git ~/Pwngdb && \
+  cd ~/Pwngdb && mv .gdbinit .gdbinit-pwngdb && \
+  sed -i "s?source ~/peda/peda.py?# source ~/peda/peda.py?g" .gdbinit-pwngdb && \
+  wget -O ~/.gdbinit-gef.py -q http://gef.blah.cat/py && \
+  echo "export LC_ALL=en_US.UTF-8" >> $HOME/.bashrc && \
+  echo "PATH=${HOME}/.local/bin:$(find ~ -name one_gadget -exec dirname {} \; | tail -n 1):$PATH" >> $HOME/.bashrc && \
+  echo "alias pwndbg='gdb -iex init-pwndbg'" >>$HOME/.bashrc && \
+  echo "alias pedagdb='gdb -iex init-peda'" >>$HOME/.bashrc && \
+  echo "alias gefgdb='gdb -iex init-gef'" >>$HOME/.bashrc
