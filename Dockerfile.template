@@ -1,5 +1,4 @@
-# Using Ubuntu as base image.
-FROM <OS>:<VERSION>
+FROM <OS>:<VERSION> as builder
 
 # Label base
 LABEL maintainer="Alex Kislitsa"
@@ -83,8 +82,65 @@ RUN \
   cd radare2 && \
   git checkout -b ${R2_TAG} && \
   ./sys/install.sh --install && \
-  apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+  apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+  r2pm init && r2pm update && r2pm -gi r2ghidra && r2pm -gi r2frida && \
+  mv /root/.local/share/radare2/plugins/* /usr/local/lib/radare2/${R2_TAG}
 
+FROM <OS>:<VERSION> as runner
+
+ENV DEBIAN_FRONTEND noninteractive
+
+ENV TZ UTC
+
+COPY --from=builder /usr/local /usr/local
+
+RUN dpkg --add-architecture i386 && \
+  apt-get -y update && \
+  apt install -y \
+  libc6:i386 \
+  libc6-dbg:i386 \
+  libc6-dbg \
+  lib32stdc++6 \
+  g++-multilib \
+  cmake \
+  pkg-config \
+  ipython3 \
+  vim \
+  net-tools \
+  iputils-ping \
+  libffi-dev \
+  libssl-dev \
+  python3-dev \
+  python3-pip \
+  build-essential \
+  ruby \
+  ruby-dev \
+  tmux \
+  strace \
+  ltrace \
+  nasm \
+  wget \
+  curl \
+  gdb \
+  gdb-multiarch \
+  netcat \
+  socat \
+  git \
+  patchelf \
+  gawk \
+  file \
+  python3-distutils \
+  python3-dev \
+  python3-setuptools \
+  libglib2.0-dev \
+  libc6-dbg \
+  bison \
+  rpm2cpio cpio \
+  zstd \
+  sudo && \
+  apt install locales --reinstall && \
+  rm -rf /var/lib/apt/list/* && \
+  ln /usr/bin/python3 /usr/bin/python
 # Create non-root user
 RUN useradd -m adam && usermod -aG sudo adam
 
@@ -98,10 +154,6 @@ RUN locale-gen
 USER adam
 WORKDIR /home/adam
 ENV HOME /home/adam
-
-# Setup r2pm
-RUN r2pm init && r2pm update && r2pm -i r2ghidra r2frida && \
-  echo "export PATH=~/.local/bin:$PATH" >> ${HOME}/.bashrc
 
 RUN python3 -m pip install -U pip && \
   python3 -m pip install --no-cache-dir \

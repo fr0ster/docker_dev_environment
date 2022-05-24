@@ -3,6 +3,7 @@ ARCH ?= 'amd64'
 VERSION ?= 'latest'
 R2_VERSION ?= 'master'
 R2_TAG ?= 5.6.8
+pwd ?= $(shell pwd)
 
 # This will output the help for each task
 # thanks to https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
