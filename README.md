@@ -30,6 +30,7 @@ Pay attention, debugging works for amd64/i386 only, for ather architectires wors
 - [tmux](https://tmux.github.io/) 	—— a terminal multiplexer
 - [ltrace](https://linux.die.net/man/1/ltrace)      —— trace library function call
 - [strace](https://linux.die.net/man/1/strace)     —— trace system call
+- [frida](https://frida.re)     —— Dynamic instrumentation toolkit for developers, reverse-engineers, and security researchers.
 
 ## Using
 
@@ -139,3 +140,7 @@ i386, Debian, 9.0, radare2 5.6.8 (default version)
 ```
 docker run --rm -v $(pwd)/test:/work_dir --network=host -it luckycatalex/dev_environment:i386-debian-9.0-5.6.8
 ```
+
+## Changelog
+
+2002.05.24 - Was added frida, frida-tools for python and r2frida plugin

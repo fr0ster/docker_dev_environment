@@ -54,6 +54,7 @@ RUN dpkg --add-architecture i386 && \
   ltrace \
   nasm \
   wget \
+  curl \
   gdb \
   gdb-multiarch \
   netcat \
@@ -99,7 +100,7 @@ WORKDIR /home/adam
 ENV HOME /home/adam
 
 # Setup r2pm
-RUN r2pm init && r2pm update && r2pm -i r2ghidra && \
+RUN r2pm init && r2pm update && r2pm -i r2ghidra r2frida && \
   echo "export PATH=~/.local/bin:$PATH" >> ${HOME}/.bashrc
 
 RUN python3 -m pip install -U pip && \
@@ -114,7 +115,9 @@ RUN python3 -m pip install -U pip && \
   capstone \
   angr \
   pebble \
-  r2pipe
+  r2pipe \
+  frida-tools \
+  frida
 
 COPY .gdbinit ${HOME}/.gdbinit
 COPY .pwn.conf ${HOME}/.pwn.conf
