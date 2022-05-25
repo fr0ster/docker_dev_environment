@@ -83,8 +83,7 @@ RUN \
   git checkout -b ${R2_TAG} && \
   ./sys/install.sh --install && \
   apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-  r2pm init && r2pm update && r2pm -gi r2ghidra && r2pm -gi r2frida && \
-  mv /root/.local/share/radare2/plugins/* /usr/local/lib/radare2/${R2_TAG}
+  r2pm init && r2pm update && r2pm -gi r2ghidra-sleigh && r2pm -gi r2ghidra && r2pm -gi r2frida
 
 FROM <OS>:<VERSION> as runner
 
