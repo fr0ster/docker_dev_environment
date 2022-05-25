@@ -157,6 +157,10 @@ USER adam
 WORKDIR /home/adam
 ENV HOME /home/adam
 
+COPY .gdbinit ${HOME}/.gdbinit
+COPY .pwn.conf ${HOME}/.pwn.conf
+COPY .tmux.conf ${HOME}/.tmux.conf
+
 RUN python3 -m pip install -U pip && \
   python3 -m pip install --no-cache-dir \
   ropgadget \
@@ -171,13 +175,7 @@ RUN python3 -m pip install -U pip && \
   pebble \
   r2pipe \
   frida-tools \
-  frida
-
-COPY .gdbinit ${HOME}/.gdbinit
-COPY .pwn.conf ${HOME}/.pwn.conf
-COPY .tmux.conf ${HOME}/.tmux.conf
-
-RUN \
+  frida && \
   sudo chown adam:adam ${HOME}/.gdbinit ${HOME}/.pwn.conf ${HOME}/.tmux.conf && \
   gem install --user one_gadget seccomp-tools && \
   git clone https://github.com/matrix1001/heapinspect.git ~/heapinspect && \
