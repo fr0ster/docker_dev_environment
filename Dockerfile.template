@@ -88,6 +88,9 @@ RUN \
 
 FROM <OS>:<VERSION> as runner
 
+# Label base
+LABEL maintainer="Alex Kislitsa"
+
 ENV DEBIAN_FRONTEND noninteractive
 
 ENV TZ UTC
