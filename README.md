@@ -141,6 +141,15 @@ i386, Debian, 9.0, radare2 5.6.8 (default version)
 docker run --rm -v $(pwd)/test:/work_dir --network=host -it luckycatalex/dev_environment:i386-debian-9.0-5.6.8
 ```
 
+## Nonintel architecture
+Supported architectures: ([more info](https://github.com/docker-library/official-images#architectures-other-than-amd64))
+amd64, arm32v7, arm64v8, i386, ppc64le, riscv64, s390x
+### Imported
+Debugging doesn't work in multiarch containers
+
+
+
 ## Changelog
 
 2002.05.24 - Was added frida, frida-tools for python and r2frida plugin
+2002.05.26 - Was added nonintel dev environment containers
