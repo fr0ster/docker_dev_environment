@@ -5,7 +5,7 @@ LABEL maintainer="Alex Kislitsa"
 
 # Radare version
 ARG R2_VERSION=master
-ARG R2_TAG=5.6.8
+ARG R2_TAG=5.7.0
 
 ENV R2_VERSION ${R2_VERSION}
 ENV R2_TAG ${R2_TAG}
