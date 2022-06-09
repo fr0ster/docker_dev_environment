@@ -27,24 +27,22 @@ run: ## Common way for images runnig, can be used variables: OS (ubuntu/debian),
 build-light: ## Common way for gdbserver images building, can be used variables: OS (ubuntu/debian), ARCH (amd64/i386/arm64v8/riscv64/...), VERSION (18.04/22.04/11/10/latest/...)
 	echo 'y' | cp Dockerfile.gdbserver.template Dockerfile.${OS}.${ARCH}.${VERSION} && \
 		sed -i 's/<OS>/${ARCH}\/${OS}/;s/<VERSION>/${VERSION}/' Dockerfile.${OS}.${ARCH}.${VERSION} && \
-		docker build -t luckycatalex/dev_environment_light:${ARCH}-${OS}-${VERSION}-${R2_TAG} \
-		--build-arg R2_VERSION=${R2_VERSION} --build-arg R2_TAG=${R2_TAG} \
+		docker build -t luckycatalex/dev_environment_light:${ARCH}-${OS}-${VERSION} \
 		--network=host . -f Dockerfile.${OS}.${ARCH}.${VERSION} && \
 		rm -f Dockerfile.${OS}.${ARCH}.${VERSION}
 
 run-light: ## Common way for gdbserver images runnig, can be used variables: OS (ubuntu/debian), ARCH (amd64/i386/arm64v8/riscv64/...), VERSION (18.04/22.04/11/10/latest/...)
-	docker run --network=host --rm -v $(work_dir):/work_dir -it luckycatalex/dev_environment_light:${ARCH}-${OS}-${VERSION}-${R2_TAG} bash; echo "Exit from container"
+	docker run --network=host --rm -v $(work_dir):/work_dir -it luckycatalex/dev_environment_light:${ARCH}-${OS}-${VERSION} bash; echo "Exit from container"
 
 build-nonintel: ## Common way for nonintel images building, can be used variables: OS (ubuntu/debian), ARCH (amd64/i386/arm64v8/riscv64/...), VERSION (18.04/22.04/11/10/latest/...)
 	echo 'y' | cp Dockerfile.nonintel.template Dockerfile.${OS}.${ARCH}.${VERSION} && \
 		sed -i 's/<OS>/${ARCH}\/${OS}/;s/<VERSION>/${VERSION}/' Dockerfile.${OS}.${ARCH}.${VERSION} && \
-		docker build -t luckycatalex/dev_environment_cross:${ARCH}-${OS}-${VERSION}-${R2_TAG} \
-		--build-arg R2_VERSION=${R2_VERSION} --build-arg R2_TAG=${R2_TAG} \
+		docker build -t luckycatalex/dev_environment_cross:${ARCH}-${OS}-${VERSION} \
 		--network=host . -f Dockerfile.${OS}.${ARCH}.${VERSION} && \
 		rm -f Dockerfile.${OS}.${ARCH}.${VERSION}
 
 run-nonintel: ## Common way for nonintel images runnig, can be used variables: OS (ubuntu/debian), ARCH (amd64/i386/arm64v8/riscv64/...), VERSION (18.04/22.04/11/10/latest/...)
-	docker run --network=host --rm -v $(work_dir):/work_dir -it luckycatalex/dev_environment_cross:${ARCH}-${OS}-${VERSION}-${R2_TAG} bash; echo "Exit from container"
+	docker run --network=host --rm -v $(work_dir):/work_dir -it luckycatalex/dev_environment_cross:${ARCH}-${OS}-${VERSION} bash; echo "Exit from container"
 
 build-oldversion: ## Common way for old version images building, can be used variables: OS (ubuntu/debian), ARCH (amd64/i386/arm64v8/riscv64/...), VERSION (14.04/16.04/...)
 	echo 'y' | cp Dockerfile.oldversion.template Dockerfile.${OS}.${ARCH}.${VERSION} && \
