@@ -2,7 +2,7 @@ OS ?= 'ubuntu'
 ARCH ?= 'amd64'
 VERSION ?= 'latest'
 R2_VERSION ?= 'master'
-R2_TAG ?= 5.7.0
+R2_TAG ?= 5.9.8
 work_dir ?= $(shell pwd)
 
 # This will output the help for each task
