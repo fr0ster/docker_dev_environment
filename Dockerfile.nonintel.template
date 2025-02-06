@@ -34,7 +34,7 @@ RUN \
     curl \
     gdb \
     gdbserver \
-    netcat \
+    netcat-traditional \
     socat \
     git \
     patchelf \
@@ -47,6 +47,7 @@ RUN \
     python3-bcrypt \
     python3-cryptography \
     python3-wheel \
+    pipx \
     libglib2.0-dev \
     libc6-dbg \
     bison \

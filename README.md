@@ -36,11 +36,11 @@ Pay attention, debugging works for amd64/i386 only, for ather architectires wors
 
 ### Image building
 
-amd64, Ubuntu, latest version, radare2 5.6.8 (default version)
+amd64, Ubuntu, latest version, radare2 5.9.8 (default version)
 ```
 make build
 ```
-amd64, Debian, latest latest, radare2 5.6.8 (default version)
+amd64, Debian, latest latest, radare2 5.9.8 (default version)
 ```
 OS=Debian make build
 ```
