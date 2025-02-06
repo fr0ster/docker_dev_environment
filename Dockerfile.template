@@ -155,7 +155,7 @@ RUN \
   keystone-engine \
   capstone \
   pebble \
-  r2pipe &&\
+  r2pipe && \
   sudo chown adam:adam ${HOME}/.gdbinit ${HOME}/.pwn.conf ${HOME}/.tmux.conf && \
   gem install --user one_gadget seccomp-tools && \
   git clone https://github.com/matrix1001/heapinspect.git ~/heapinspect && \
